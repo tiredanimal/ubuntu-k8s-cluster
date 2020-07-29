@@ -6,4 +6,4 @@
         - import_tasks: configure_hosts.yml
         - import_tasks: disable_swap.yml
         - import_tasks: enable_ipv4_fwd.yml
-    
+        - import_tasks: configure_docker_daemon.yml

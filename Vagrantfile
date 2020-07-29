@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
             v.name = "k8s-master"
             v.gui = false
             v.memory = 1024
-            v.cpus = 1
+            v.cpus = 2
         end
     end
 
@@ -50,7 +50,7 @@ Vagrant.configure(2) do |config|
                 v.name = "k8s-node-#{i}"
                 v.gui = false
                 v.memory = 1024
-                v.cpus = 1
+                v.cpus = 2
                 v.customize ["modifyvm", :id, "--ioapic", "on"]   
             end
         end

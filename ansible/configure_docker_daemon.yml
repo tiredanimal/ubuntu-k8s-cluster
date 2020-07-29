@@ -1,0 +1,14 @@
+---
+- name: Configure native cgroup driver to systemd
+  template:
+    src: templates/daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Restart docker and issue daemon-reload
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
