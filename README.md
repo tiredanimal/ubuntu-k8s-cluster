@@ -5,11 +5,11 @@ POC for running k8s on Ubuntu 20.04 using virtualbox on Windows (though could be
 
 * SSH public key for your user profile must exist already it can be created via an ssh terminal such as Git bash for Windows
 
-* Vitual box installed
+* Virtual box installed
 
 * Vagrant installed
 
-* Install "vagrant-vbguest" via the following command to sync folders to cluster on "vagrant up"
+* Install "vagrant-vbguest" via the following command to sync folders to cluster
 
 **vagrant plugin install vagrant-vbguest**
 
