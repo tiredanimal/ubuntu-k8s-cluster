@@ -6,14 +6,14 @@ DIR_HOME = ENV['USERPROFILE']
 ip_node = 40
 ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 DOMAIN = ".nedster.com"
-NETWORK = "192.168.40"
+NETWORK = "192.168.10"
 
 puts DIR_HOME
 
 
 Vagrant.configure(2) do |config|
     config.ssh.insert_key = true
-    config.vm.synced_folder '.', '/vagrant', disabled: true
+    config.vm.synced_folder '.', '/vagrant', disabled: false
     config.ssh.password = "vagrant"
 
     # Kubernetes Master Server
@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
         kmaster.vm.box = "nedster1980/ubuntu2004"
         kmaster.vm.hostname = "k8s-master#{DOMAIN}"
         puts "kmaster ip_node is #{ip_node}"
-        kmaster.vm.network "private_network", ip: "#{NETWORK}.#{ip_node}"
+        kmaster.vm.network  "private_network", type: "static", ip: "#{NETWORK}.#{ip_node}", virtualbox__intnet: "intnet"
         kmaster.vm.provider "virtualbox" do |v|
             #Use linked clones to save space
             v.linked_clone = true
@@ -42,7 +42,7 @@ Vagrant.configure(2) do |config|
             workernode.vm.box = "nedster1980/ubuntu2004"
             workernode.vm.hostname = "k8s-node-#{i}#{DOMAIN}"
             puts "workernode #{i} ip_node is #{ip_node}"
-            workernode.vm.network "private_network", ip: "#{NETWORK}.#{ip_node}"
+            workernode.vm.network  "private_network", type: "static", ip: "#{NETWORK}.#{ip_node}", virtualbox__intnet: "intnet"
             workernode.vm.provider "virtualbox" do |v|
                 #Use linked clones to save space
                 v.linked_clone = true
@@ -63,6 +63,11 @@ Vagrant.configure(2) do |config|
         echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
         SHELL
     end
+
+    config.vm.provision "ansible_local" do |ansible|
+        ansible.playbook = "ansible/main.yml"
+    end
+
     config.vm.provision "shell", inline: "echo Hello, World"
     
 end

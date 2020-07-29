@@ -1,0 +1,8 @@
+---
+- name: Configure /etc/hosts for k8s cluster
+  template:
+    src: templates/hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: '0644'

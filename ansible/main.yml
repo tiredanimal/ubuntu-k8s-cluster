@@ -1,0 +1,9 @@
+---
+    - hosts: all
+      become: yes
+      gather_facts: yes
+      tasks:
+        - import_tasks: configure_hosts.yml
+        - import_tasks: disable_swap.yml
+        - import_tasks: enable_ipv4_fwd.yml
+    
