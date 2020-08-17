@@ -37,7 +37,9 @@ Log into node 2 via the following command:
 
 ## Initialise Kubernetes Cluster
 
-**sudo kubeadm init --pod-network-cidr=10.244.0.0/16**
+The "apiserver-advertise-address" has to be used due to multiple nics on host
+
+** sudo kubeadm init --apiserver-advertise-address=192.168.10.40 --pod-network-cidr=10.244.0.0/16**
 
 Note the details to join worker nodes to the K8s cluster
 
@@ -61,6 +63,28 @@ Create config with the following commands:
 **sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config**
 
 **sudo chown $(id -u):$(id -g) $HOME/.kube/config**
+
+## Deploy pod network to cluster
+
+As k8susr issue the following commands:
+
+**kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml**
+
+**kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml**
+
+Confirm that evverthing is up and ready
+
+**kubectl get pods --all-namespaces**
+
+## On each worker node create user and join to cluster
+
+Create user
+
+**sudo useradd -m -G sudo,docker -c "K8s User" -s /bin/bash k8susr**
+
+Join to cluster
+
+**
 
 
 
