@@ -82,10 +82,12 @@ Confirm that evverthing is up and ready
 
 Join to cluster
 
-**kubeadm join 192.168.10.40:6443 --token xd4xb4.ogvlwxf2lw0szij2 \
+**sudo kubeadm join 192.168.10.40:6443 --token xd4xb4.ogvlwxf2lw0szij2 \
     --discovery-token-ca-cert-hash sha256:13975cbd201a26ade0f307f4e1c05672871594bf61d5c60acf83321f2491f791**
 
+Verify nodes have joined from master and are in state ready
 
+**kubectl get nodes**
 
 
 
