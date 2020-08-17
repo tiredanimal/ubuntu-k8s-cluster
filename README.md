@@ -43,8 +43,9 @@ The "apiserver-advertise-address" has to be used due to multiple nics on host
 
 Note the details to join worker nodes to the K8s cluster
 
-*kubeadm join 10.0.2.15:6443 --token iki90v.872ptxbbiky5wiwk \
-    --discovery-token-ca-cert-hash sha256:5366e126af0f25d1c176a89675caac30bb86a1425066bab3f1fb6fca6173881d*
+*kubeadm join 192.168.10.40:6443 --token xd4xb4.ogvlwxf2lw0szij2 \
+    --discovery-token-ca-cert-hash sha256:13975cbd201a26ade0f307f4e1c05672871594bf61d5c60acf83321f2491f791*
+
 
 ## Create K8s user
 
@@ -76,15 +77,14 @@ Confirm that evverthing is up and ready
 
 **kubectl get pods --all-namespaces**
 
-## On each worker node create user and join to cluster
+## On each worker node join to cluster as root
 
-Create user
-
-**sudo useradd -m -G sudo,docker -c "K8s User" -s /bin/bash k8susr**
 
 Join to cluster
 
-**
+**kubeadm join 192.168.10.40:6443 --token xd4xb4.ogvlwxf2lw0szij2 \
+    --discovery-token-ca-cert-hash sha256:13975cbd201a26ade0f307f4e1c05672871594bf61d5c60acf83321f2491f791**
+
 
 
 
