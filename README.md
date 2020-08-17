@@ -44,3 +44,22 @@ Note the details to join worker nodes to the K8s cluster
 *kubeadm join 10.0.2.15:6443 --token iki90v.872ptxbbiky5wiwk \
     --discovery-token-ca-cert-hash sha256:5366e126af0f25d1c176a89675caac30bb86a1425066bab3f1fb6fca6173881d*
 
+## Create K8s user
+
+Create k8s user using the following command
+
+**sudo useradd -m -G sudo,docker -c "K8s User" -s /bin/bash k8susr**
+
+Remember to assign a password or ssh key
+
+Create config with the following commands:
+
+**su - k8susr
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config**
+
+
+
+
+
+
