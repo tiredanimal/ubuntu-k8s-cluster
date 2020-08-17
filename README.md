@@ -38,6 +38,7 @@ Log into node 2 via the following command:
 ## Initialise Kubernetes Cluster
 
 **sudo kubeadm init --pod-network-cidr=10.244.0.0/16**
+
 Note the details to join worker nodes to the K8s cluster
 *kubeadm join 10.0.2.15:6443 --token iki90v.872ptxbbiky5wiwk \
     --discovery-token-ca-cert-hash sha256:5366e126af0f25d1c176a89675caac30bb86a1425066bab3f1fb6fca6173881d***
