@@ -54,9 +54,9 @@ Remember to assign a password or ssh key
 
 Create config with the following commands:
 
-**su - k8susr
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config**
+**su - k8susr**
+**mkdir -p $HOME/.kube**
+**sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config**
 
 
 
