@@ -85,7 +85,7 @@ Join to cluster
 **sudo kubeadm join 192.168.10.40:6443 --token xd4xb4.ogvlwxf2lw0szij2 \
     --discovery-token-ca-cert-hash sha256:13975cbd201a26ade0f307f4e1c05672871594bf61d5c60acf83321f2491f791**
 
-Join each worked node to cluster as root
+Join each worker node to cluster as root
 
 **kubectl get nodes**
 
