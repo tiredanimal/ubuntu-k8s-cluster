@@ -37,4 +37,5 @@ Log into node 2 via the following command:
 
 ## Initialise Kubernetes Cluster
 
-**sudo kubeadm init**
+**sudo kubeadm init --pod-network-cidr=10.244.0.0/16**
+
