@@ -89,7 +89,9 @@ Join each worker node to cluster as root
 
 **kubectl get nodes**
 
+## Start hacking 
 
+Start deploying services adnd pods to cluster
 
 
 
