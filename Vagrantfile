@@ -18,6 +18,7 @@ Vagrant.configure(2) do |config|
 
     # Kubernetes Master Server
     config.vm.define "kmaster" do |kmaster|
+        kmaster.vm.box_version = "0.1.3"
         kmaster.vm.box = "nedster1980/ubuntu2004"
         kmaster.vm.hostname = "k8s-master#{DOMAIN}"
         puts "kmaster ip_node is #{ip_node}"
@@ -39,6 +40,7 @@ Vagrant.configure(2) do |config|
 		# Defining VM properties
         config.vm.define "k8s_node-#{i}" do |workernode|
             ip_node += 1
+            workernode.vm.box_version = "0.1.3"
             workernode.vm.box = "nedster1980/ubuntu2004"
             workernode.vm.hostname = "k8s-node-#{i}#{DOMAIN}"
             puts "workernode #{i} ip_node is #{ip_node}"
