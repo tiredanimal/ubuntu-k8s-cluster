@@ -1,0 +1,76 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#Update DIR_HOME if run on a Mac.
+DIR_HOME = ENV['USERPROFILE']
+ip_node = 40
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+DOMAIN = ".nedster.com"
+NETWORK = "192.168.10"
+
+puts DIR_HOME
+
+
+Vagrant.configure(2) do |config|
+    config.ssh.insert_key = true
+    config.vm.synced_folder '.', '/vagrant', disabled: false
+    config.ssh.password = "vagrant"
+
+    # Kubernetes Master Server
+    config.vm.define "kmaster" do |kmaster|
+        kmaster.vm.box_version = "0.1.3"
+        kmaster.vm.box = "nedster1980/ubuntu2004"
+        kmaster.vm.hostname = "k8s-master#{DOMAIN}"
+        puts "kmaster ip_node is #{ip_node}"
+        kmaster.vm.network  "private_network", type: "static", ip: "#{NETWORK}.#{ip_node}", virtualbox__intnet: "intnet"
+        kmaster.vm.provider "virtualbox" do |v|
+            #Use linked clones to save space
+            v.linked_clone = true
+            v.name = "k8s-master"
+            v.gui = false
+            v.memory = 1024
+            v.cpus = 2
+        end
+    end
+
+    NodeCount = 2
+
+	# Kubernetes Worker Nodes
+    (1..NodeCount).each do |i|
+		# Defining VM properties
+        config.vm.define "k8s_node-#{i}" do |workernode|
+            ip_node += 1
+            workernode.vm.box_version = "0.1.3"
+            workernode.vm.box = "nedster1980/ubuntu2004"
+            workernode.vm.hostname = "k8s-node-#{i}#{DOMAIN}"
+            puts "workernode #{i} ip_node is #{ip_node}"
+            workernode.vm.network  "private_network", type: "static", ip: "#{NETWORK}.#{ip_node}", virtualbox__intnet: "intnet"
+            workernode.vm.provider "virtualbox" do |v|
+                #Use linked clones to save space
+                v.linked_clone = true
+				# The VM will be named as ubuntu-k8s_vm{i}
+                v.name = "k8s-node-#{i}"
+                v.gui = false
+                v.memory = 1024
+                v.cpus = 2
+                v.customize ["modifyvm", :id, "--ioapic", "on"]   
+            end
+        end
+    end
+
+    #Add ssh key
+    config.vm.provision "shell" do |s|
+        ssh_pub_key = File.readlines("#{DIR_HOME}/.ssh/id_rsa.pub").first.strip
+        s.inline = <<-SHELL
+        echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+        SHELL
+    end
+
+    config.vm.provision "ansible_local" do |ansible|
+        ansible.playbook = "../ansible/main.yml"
+    end
+
+    config.vm.provision "shell", inline: "echo Hello, World"
+    
+end
+

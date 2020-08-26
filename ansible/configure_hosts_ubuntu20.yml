@@ -1,0 +1,8 @@
+---
+- name: Configure /etc/hosts for k8s cluster on Ubuntu 20.04
+  template:
+    src: templates/hosts_ubuntu20.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: '0644'

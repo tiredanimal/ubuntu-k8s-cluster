@@ -6,3 +6,10 @@ k8s_node_1_ip: 192.168.10.41
 k8s_node_1_hostname: k8s-node-1
 k8s_node_2_ip: 192.168.10.42
 k8s_node_2_hostname: k8s-node-2
+k8s_master_1804_ip: 192.168.10.40
+k8s_master_1804_hostname: k8s-master-1804
+k8s_1804_fqdn: .nedster.com
+k8s_node_1_1804_ip: 192.168.10.41
+k8s_node_1_1804_hostname: k8s-node-1804-1
+k8s_node_2_1804_ip: 192.168.10.42
+k8s_node_2_1804_hostname: k8s-node-1804-2

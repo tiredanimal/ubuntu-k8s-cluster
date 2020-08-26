@@ -1,0 +1,9 @@
+127.0.0.1       localhost
+{{ k8s_master_1804_ip }}       {{ k8s_master_1804_hostname }}{{ k8s_1804_fqdn }}  {{ k8s_master_1804_hostname }}
+{{ k8s_node_1_1804_ip }}       {{ k8s_node_1_1804_hostname }}{{ k8s_1804_fqdn }}  {{ k8s_node_1_1804_hostname }}
+{{ k8s_node_2_1804_ip }}       {{ k8s_node_2_1804_hostname }}{{ k8s_1804_fqdn }}  {{ k8s_node_2_1804_hostname }}
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
