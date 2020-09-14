@@ -39,7 +39,7 @@ Log into node 2 via the following command:
 
 The "apiserver-advertise-address" has to be used due to multiple nics on host
 
-**sudo kubeadm init --apiserver-advertise-address=192.168.10.40 --pod-network-cidr=10.244.0.0/16**
+**sudo kubeadm init --kubernetes-version=v1.16.13 --apiserver-advertise-address=192.168.10.40 --pod-network-cidr=10.244.0.0/16**
 
 Note the details to join worker nodes to the K8s cluster
 
@@ -73,7 +73,7 @@ As k8susr issue the following commands:
 
 **kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml**
 
-Confirm that evverthing is up and ready
+Confirm that everything is up and ready
 
 **kubectl get pods --all-namespaces**
 
@@ -91,7 +91,7 @@ Join each worker node to cluster as root
 
 ## Start hacking 
 
-Start deploying services adnd pods to cluster
+Start deploying services and add pods to cluster
 
 
 

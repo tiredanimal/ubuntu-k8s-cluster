@@ -13,19 +13,20 @@ puts DIR_HOME
 
 Vagrant.configure(2) do |config|
     config.ssh.insert_key = true
-    config.vm.synced_folder '.', '/vagrant', disabled: false
+    config.vm.synced_folder '..', '/vagrant', disabled: false
     config.ssh.password = "vagrant"
 
     # Kubernetes Master Server
-    config.vm.define "kmaster" do |kmaster|
-        kmaster.vm.box = "nedster1980/ubuntu2004"
-        kmaster.vm.hostname = "k8s-master#{DOMAIN}"
+    config.vm.define "kmaster1804" do |kmaster|
+        kmaster.vm.box_version = "0.1.0"
+        kmaster.vm.box = "nedster1980/ubuntu1804"
+        kmaster.vm.hostname = "k8s-master-1804#{DOMAIN}"
         puts "kmaster ip_node is #{ip_node}"
         kmaster.vm.network  "private_network", type: "static", ip: "#{NETWORK}.#{ip_node}", virtualbox__intnet: "intnet"
         kmaster.vm.provider "virtualbox" do |v|
             #Use linked clones to save space
             v.linked_clone = true
-            v.name = "k8s-master"
+            v.name = "k8s-master-1804"
             v.gui = false
             v.memory = 1024
             v.cpus = 2
@@ -37,17 +38,18 @@ Vagrant.configure(2) do |config|
 	# Kubernetes Worker Nodes
     (1..NodeCount).each do |i|
 		# Defining VM properties
-        config.vm.define "k8s_node-#{i}" do |workernode|
+        config.vm.define "k8s_node-1804-#{i}" do |workernode|
             ip_node += 1
-            workernode.vm.box = "nedster1980/ubuntu2004"
-            workernode.vm.hostname = "k8s-node-#{i}#{DOMAIN}"
+            workernode.vm.box_version = "0.1.0"
+            workernode.vm.box = "nedster1980/ubuntu1804"
+            workernode.vm.hostname = "k8s-node-1804-#{i}#{DOMAIN}"
             puts "workernode #{i} ip_node is #{ip_node}"
             workernode.vm.network  "private_network", type: "static", ip: "#{NETWORK}.#{ip_node}", virtualbox__intnet: "intnet"
             workernode.vm.provider "virtualbox" do |v|
                 #Use linked clones to save space
                 v.linked_clone = true
 				# The VM will be named as ubuntu-k8s_vm{i}
-                v.name = "k8s-node-#{i}"
+                v.name = "k8s-node-1804-#{i}"
                 v.gui = false
                 v.memory = 1024
                 v.cpus = 2

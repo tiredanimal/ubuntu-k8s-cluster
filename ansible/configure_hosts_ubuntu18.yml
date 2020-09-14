@@ -1,0 +1,8 @@
+---
+- name: Configure /etc/hosts for k8s cluster on Ubuntu 18.04
+  template:
+    src: templates/hosts_ubuntu18.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: '0644'
